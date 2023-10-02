@@ -1,0 +1,28 @@
+.paginator {
+  width: max-content;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  border: 1px solid rgba(0,0,0,.125);
+  border-right: none;
+  border-radius: 4px;
+  cursor: pointer;
+  color: #007bff;
+  .element {
+    padding: 8px 12px;
+    border-right: 1px solid rgba(0,0,0,.125);;
+    &:hover {
+      background-color: #dee2e6;
+    }
+    &.selected {
+      background-color: beige;
+    }
+    &.disabled {
+      cursor: default;
+      color: #dee2e6;
+      &:hover {
+        background-color: white;
+      }
+    }
+  }
+}

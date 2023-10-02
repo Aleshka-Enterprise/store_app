@@ -1,0 +1,27 @@
+.header {
+  background-image: url('../../asserts/images/wallpaper.jpg');
+  height: 100vh;
+  .content {
+    margin-top: 50px;
+    width: 550px;
+    h1 {
+      margin-bottom: 10px;
+    }
+    button {
+      background-color: #23364e;
+      border-color: #23364e;
+      color: white;
+      font-weight: 400;
+      text-align: center;
+      border: 1px solid transparent;
+      font-size: 1.25rem;
+      border-radius: 5px;
+      padding: 8px 16px;
+      cursor: pointer;
+      transition: .3s;
+      &:hover {
+        background-color: #00005f;
+      }
+    }
+  }
+}
