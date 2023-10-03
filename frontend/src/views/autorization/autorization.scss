@@ -1,0 +1,27 @@
+.autorization {
+  background-color: #c4d4e7;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  .container {
+    width: 450px;
+  }
+  .warning {
+    color: #856404;
+    background-color: #fff3cd;
+    border-color: #ffeeba;
+    width: 100%;
+    padding: 8px 20px;
+    position: relative;
+    .cross {
+      position: absolute;
+      right: 15px;
+      top: 5px;
+      font-size: 20px;
+      cursor: pointer;
+      &:hover {
+        color: black;
+      }
+    }
+  }
+}

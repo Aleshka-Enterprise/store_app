@@ -1,15 +1,22 @@
 import React from "react";
+import { IProduct } from "../../models/products/products";
 
 import "./product-card.scss";
 
-const ProductCard = (): React.ReactElement => {
+interface ProductCartProps {
+  product: IProduct;
+}
+
+const ProductCard = ({ product }: ProductCartProps): React.ReactElement => {
   return (
     <div className='product-card'>
-      <div className='card-img'></div>
+      <div className='card-img'>
+        <img src={product.image} alt={product.name} />
+      </div>
       <div className='title'>
-        <h4 className='card-title'>Худи черного цвета с монограммами adidas Originals</h4>
-        <p className='description'>Мягкая ткань для свитшотов. Стиль и комфорт – это образ жизни.</p>
-        <h5 className='price'>6999,00 руб.</h5>
+        <h4 className='card-title'>{product.name}</h4>
+        <p className='description'>{product.short_description}</p>
+        <h5 className='price'>{product.price} руб.</h5>
       </div>
       <div className='card-footer'>
         <button>

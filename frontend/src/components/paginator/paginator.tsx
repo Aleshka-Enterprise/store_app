@@ -4,11 +4,11 @@ import "./paginator.scss";
 
 interface PaginatorProps {
   onPageSelect: (index: number) => void;
-  maxPages?: number;
+  selectedPage: number;
+  maxCount: number;
 }
 
-const Paginator = ({ onPageSelect }: PaginatorProps): React.ReactElement => {
-  const [selectedPage, setPage] = useState<number>(0);
+const Paginator = ({ onPageSelect, selectedPage }: PaginatorProps): React.ReactElement => {
 
   return (
     <div className='paginator'>
@@ -16,7 +16,6 @@ const Paginator = ({ onPageSelect }: PaginatorProps): React.ReactElement => {
         className={`element ${selectedPage <= 1 ? "disabled" : ""}`}
         onClick={(): void => {
           if (selectedPage > 1) {
-            setPage(selectedPage - 1)
             onPageSelect(selectedPage - 1);
           }
         }}
@@ -29,7 +28,6 @@ const Paginator = ({ onPageSelect }: PaginatorProps): React.ReactElement => {
             key={page}
             className={`element ${page === selectedPage ? "selected" : ""}`}
             onClick={(): void => {
-              setPage(page)
               onPageSelect(page);
             }}
           >
