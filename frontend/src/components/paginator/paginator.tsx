@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 
 import "./paginator.scss";
 
@@ -9,7 +9,6 @@ interface PaginatorProps {
 }
 
 const Paginator = ({ onPageSelect, selectedPage }: PaginatorProps): React.ReactElement => {
-
   return (
     <div className='paginator'>
       <div
@@ -22,7 +21,8 @@ const Paginator = ({ onPageSelect, selectedPage }: PaginatorProps): React.ReactE
       >
         Предыдущая
       </div>
-      {[1, 2].map((page) => {
+      {/* TODO Отображение пагинатора в пределах 5 элементов */}
+      {[1, 2].map(page => {
         return (
           <div
             key={page}
@@ -33,7 +33,7 @@ const Paginator = ({ onPageSelect, selectedPage }: PaginatorProps): React.ReactE
           >
             {page}
           </div>
-        )
+        );
       })}
       <div className='element'>Следующая</div>
     </div>

@@ -3,7 +3,7 @@ import HeaderMenu from "../../components/header-menu/header-menu";
 import Slider from "../../components/slider/slider";
 import ProductCard from "../../components/product-card/product-card";
 import Paginator from "../../components/paginator/paginator";
-import Footer from "../../components/footer.tsx/footer";
+import Footer from "../../components/footer/footer";
 import { ICategory, IProduct } from "../../models/products/products";
 import ProductService from "../../services/proucts/products.service";
 
@@ -30,6 +30,7 @@ const Products = (): React.ReactElement => {
     });
   }, []);
 
+  // TODO Реализавать фильтрацию/пагинацию продуктов
   useEffect(() => {
     ProductService.getProducts(categoryId).then((res): void => {
       setProducts(res);
@@ -43,13 +44,12 @@ const Products = (): React.ReactElement => {
         <div className='categories'>
           <h1>Store</h1>
           <div className='list-group'>
-            <div className='list-group-item' onClick={(): void => setCategoryId(undefined)}>Все категории</div>
+            <div className='list-group-item' onClick={(): void => setCategoryId(undefined)}>
+              Все категории
+            </div>
             {productsCategories?.map(category => (
-              <div
-                key={category.id} onClick={(): void => setCategoryId(category.id)}
-                className='list-group-item'
-                >
-                  {category.title}
+              <div key={category.id} onClick={(): void => setCategoryId(category.id)} className='list-group-item'>
+                {category.title}
               </div>
             ))}
           </div>
@@ -59,18 +59,24 @@ const Products = (): React.ReactElement => {
             <Slider imgs={slidersList} />
           </div>
           <div className='products-list'>
-            {products?.results?.map((product) => <ProductCard product={product} key={product.id} />)}
+            {products?.results?.map(product => (
+              <ProductCard product={product} key={product.id} />
+            ))}
           </div>
           {products?.count && (
             <div className='product-paginator center'>
-              <Paginator onPageSelect={selectedPage} selectedPage={page} maxCount={(products?.count || 0) / PAGE_RANGE} />
+              <Paginator
+                onPageSelect={selectedPage}
+                selectedPage={page}
+                maxCount={(products?.count || 0) / PAGE_RANGE}
+              />
             </div>
           )}
         </div>
       </div>
       <Footer />
     </div>
-  )
-}
+  );
+};
 
 export default Products;

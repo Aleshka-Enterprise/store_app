@@ -19,9 +19,7 @@ const ProductCard = ({ product }: ProductCartProps): React.ReactElement => {
         <h5 className='price'>{product.price} руб.</h5>
       </div>
       <div className='card-footer'>
-        <button>
-            Отправить в корзину
-        </button>
+        <button>Отправить в корзину</button>
       </div>
     </div>
   );

@@ -1,5 +1,10 @@
 import React, { useEffect, useState } from "react";
+import { useFormik } from "formik";
+import * as yup from "yup";
+import StoreInput from "../../components/store-input/store-input";
+import { useNavigate } from "react-router-dom";
 
+import "font-awesome/css/font-awesome.min.css";
 import "./autorization.scss";
 
 interface IWarning {
@@ -7,23 +12,88 @@ interface IWarning {
   description: string;
 }
 
+const userSchema = yup.object({
+  username: yup.string().required(),
+  password: yup.number().required().positive().integer(),
+});
+
 const Autorization = (): React.ReactElement => {
   const [warning, setWarning] = useState<IWarning>();
+  const navigate = useNavigate();
+
+  const formik = useFormik({
+    initialValues: {
+      userName: "",
+      password: "",
+    },
+    onSubmit: (): void => {
+      // TODO Отправка формы
+      console.log("Отправка формы");
+    },
+    validationSchema: userSchema,
+  });
 
   useEffect(() => {
-    setWarning({ title: "Holy guacamole!", description: "You should check in on some of those fields below." })
+    setWarning({ title: "Holy guacamole!", description: "You should check in on some of those fields below." });
   }, []);
 
   return (
     <div className='autorization'>
       <div className='content'>
-         {warning && (
+        {warning && (
           <div className='warning'>
             <b>{warning.title}</b>
             <p>{warning.description}</p>
-            <div className='cross' onClick={(): void => setWarning(undefined)}>×</div>
+            <div className='cross' onClick={(): void => setWarning(undefined)}>
+              ×
+            </div>
           </div>
         )}
+        <div className='form'>
+          <div className='card-header center'>
+            <h3 className='center'>Авторизация</h3>
+          </div>
+          <div className='card-body'>
+            <div className='input'>
+              <StoreInput
+                formik={formik}
+                fieldName={"username"}
+                label={"Имя пользователя"}
+                placeholder={"Введите имя пользователя"}
+              />
+            </div>
+            <div className='input'>
+              <StoreInput
+                formik={formik}
+                fieldName={"password"}
+                label={"Пароль"}
+                placeholder={"Введите пароль"}
+                type={"password"}
+              />
+            </div>
+            <div className='button'>
+              <span>Забыли пароль?</span>
+              <button>Авторизоваться</button>
+            </div>
+            <div className='form-group'>
+              <div className='circle'>
+                <i className='fa fa-google'></i>
+              </div>
+              <div className='circle'>
+                <i className='fa fa-vk'></i>
+              </div>
+              <div className='circle'>
+                <i className='fa fa-github'></i>
+              </div>
+              <div className='circle'>
+                <i className='fa fa-facebook'></i>
+              </div>
+            </div>
+          </div>
+          <div className='card-footer'>
+            <span onClick={(): void => navigate("/registration/")}>Нужен аккаунт? Зарегистрируйся!</span>
+          </div>
+        </div>
       </div>
     </div>
   );
