@@ -1,6 +1,25 @@
 .header-menu {
   background-color: #343a40;
   height: 56px;
+  .dropdown-menu {
+    position: absolute;
+    border: 1px solid rgba(0,0,0,.15);
+    border-radius: 0.25rem;
+    background-color: white;
+    color: black;
+    width: 170px;
+    top: 30px;
+    li {
+      padding: 10px 15px;
+      list-style-type: none;
+      &:hover {
+        background-color: #f8f9fa;
+      }
+    }
+    hr {
+      margin: 0;
+    }
+  }
   .container {
     display: flex;
     justify-content: space-between;
@@ -10,6 +29,22 @@
         color: white;
         font-size: 1.25rem;
         cursor: pointer;
+    }
+    .navbar-nav {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      color: rgba(255,255,255,.5);
+      .elem {
+        cursor: pointer;
+        .fa {
+          margin-left: 5px;
+        }
+        &:hover {
+          color: #FFF;
+        }
+      }
+
     }
   }
 }
