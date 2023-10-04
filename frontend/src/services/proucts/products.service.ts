@@ -7,7 +7,7 @@ class ProductService extends CommonService {
   protected url = `${this.baseURL}/api/product`;
 
   getProducts(categotyId?: number): Promise<Page<IProduct>> {
-    return axios.get<Page<IProduct>>(`${this.url}/products-list/`, { params: { categoty_id: categotyId } }).then(
+    return axios.get<Page<IProduct>>(`${this.url}/products-list/`, { params: { category_id: categotyId} }).then(
       response => response.data,
       reason => Promise.reject(reason)
     );

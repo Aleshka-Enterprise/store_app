@@ -20,6 +20,7 @@ class ProductsCategoryAPIView(ListAPIView):
 class ProductModelViewSet(ModelViewSet):
     serializer_class = ProductsSerializer
     pagination_class = StandardResultsSetPagination
+    queryset = Product.objects.filter()
 
     def get_queryset(self):
         category_id = self.request.query_params.get('category_id')
