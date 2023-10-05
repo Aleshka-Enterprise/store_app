@@ -1,13 +1,18 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import Home from "./views/home/home";
 import Products from "./views/products/products";
 import Autorization from "./views/autorization/autorization";
 import Registration from "./views/registration/registration";
+import { userInitialization } from "./utils/user";
 
 import "./App.css";
 
 const App = (): React.ReactElement => {
+  useEffect(() => {
+    userInitialization();
+  }, []);
+
   return (
     <BrowserRouter>
       <Routes>

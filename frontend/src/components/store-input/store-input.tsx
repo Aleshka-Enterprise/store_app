@@ -18,7 +18,17 @@ const StoreInput = ({ formik, fieldName, label, placeholder, type = "text" }: St
   return (
     <div className='store-input'>
       {label && <label htmlFor={fieldName}>{label}</label>}
-      <input onChange={formikProps.onChange} name={formikProps.name as string} placeholder={placeholder} type={type} />
+      <input
+        onChange={formikProps.onChange}
+        name={formikProps.name as string}
+        placeholder={placeholder}
+        type={type}
+        onKeyDown={(event: React.KeyboardEvent<HTMLInputElement>) => {
+          if (event.key === "Enter") {
+            formik.submitForm();
+          };
+        }}
+      />
     </div>
   );
 };

@@ -3,6 +3,7 @@ import { useFormik } from "formik";
 import * as yup from "yup";
 import StoreInput from "../../components/store-input/store-input";
 import { useNavigate } from "react-router-dom";
+import UserService from "../../services/users/users.service";
 
 import "font-awesome/css/font-awesome.min.css";
 import "./autorization.scss";
@@ -14,7 +15,7 @@ interface IWarning {
 
 const userSchema = yup.object({
   username: yup.string().required(),
-  password: yup.number().required().positive().integer(),
+  password: yup.string().required(),
 });
 
 const Autorization = (): React.ReactElement => {
@@ -23,19 +24,21 @@ const Autorization = (): React.ReactElement => {
 
   const formik = useFormik({
     initialValues: {
-      userName: "",
+      username: "",
       password: "",
     },
-    onSubmit: (): void => {
-      // TODO Отправка формы
-      console.log("Отправка формы");
+    onSubmit: (values): void => {
+      UserService.autorization(values)
+      .then((): void => {
+        navigate("/");
+      })
+      .catch((err) => {
+        setWarning({ title: "Ошибка", description: "Не верный логин или пароль!" })
+        formik.setSubmitting(false);
+      });
     },
     validationSchema: userSchema,
   });
-
-  useEffect(() => {
-    setWarning({ title: "Holy guacamole!", description: "You should check in on some of those fields below." });
-  }, []);
 
   return (
     <div className='autorization'>
@@ -44,9 +47,7 @@ const Autorization = (): React.ReactElement => {
           <div className='warning'>
             <b>{warning.title}</b>
             <p>{warning.description}</p>
-            <div className='cross' onClick={(): void => setWarning(undefined)}>
-              ×
-            </div>
+            <div className='cross' onClick={(): void => setWarning(undefined)}>×</div>
           </div>
         )}
         <div className='form'>
@@ -73,7 +74,7 @@ const Autorization = (): React.ReactElement => {
             </div>
             <div className='button'>
               <span>Забыли пароль?</span>
-              <button>Авторизоваться</button>
+              <button onClick={() => formik.submitForm()}>Авторизоваться</button>
             </div>
             <div className='form-group'>
               <div className='circle'>

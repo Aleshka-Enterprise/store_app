@@ -30,12 +30,34 @@ const Products = (): React.ReactElement => {
     });
   }, []);
 
-  // TODO Реализавать фильтрацию/пагинацию продуктов
   useEffect(() => {
-    ProductService.getProducts(categoryId).then((res): void => {
+    ProductService.getProducts(categoryId, page).then((res): void => {
       setProducts(res);
     });
   }, [categoryId, page]);
+
+  const onCategoryClick = (categoryId?: number): void => {
+    selectedPage(1);
+    setCategoryId(categoryId);
+  };
+
+  const productsCategoriesMenu = () => {
+    const categories: { id?: number; title: string }[] = [{ title: "Все категории" }, ...productsCategories];
+
+    return (
+      <>
+        {categories?.map(category => (
+          <div
+            key={category.id}
+            style={{ color: category.id === categoryId ? "red" : "blue" }}
+            onClick={(): void => onCategoryClick(category.id)} className='list-group-item'
+          >
+            {category.title}
+          </div>
+        ))}
+      </>
+    );
+  }
 
   return (
     <div className='products'>
@@ -43,16 +65,7 @@ const Products = (): React.ReactElement => {
       <div className='container content'>
         <div className='categories'>
           <h1>Store</h1>
-          <div className='list-group'>
-            <div className='list-group-item' onClick={(): void => setCategoryId(undefined)}>
-              Все категории
-            </div>
-            {productsCategories?.map(category => (
-              <div key={category.id} onClick={(): void => setCategoryId(category.id)} className='list-group-item'>
-                {category.title}
-              </div>
-            ))}
-          </div>
+          <div className='list-group'>{productsCategoriesMenu()}</div>
         </div>
         <div className='products-content'>
           <div className='slider'>
@@ -63,12 +76,12 @@ const Products = (): React.ReactElement => {
               <ProductCard product={product} key={product.id} />
             ))}
           </div>
-          {products?.count && (
+          {!!products?.count && products.count > 1 && (
             <div className='product-paginator center'>
               <Paginator
                 onPageSelect={selectedPage}
                 selectedPage={page}
-                maxCount={(products?.count || 0) / PAGE_RANGE}
+                maxCount={Math.ceil((products?.count || 0) / PAGE_RANGE)}
               />
             </div>
           )}

@@ -13,7 +13,7 @@ const userSchema = yup.object({
 const Registration = (): React.ReactElement => {
   const formik = useFormik({
     initialValues: {
-      userName: "",
+      username: "",
       password: "",
     },
     onSubmit: (): void => {

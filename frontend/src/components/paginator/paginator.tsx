@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 
 import "./paginator.scss";
 
@@ -8,7 +8,23 @@ interface PaginatorProps {
   maxCount: number;
 }
 
-const Paginator = ({ onPageSelect, selectedPage }: PaginatorProps): React.ReactElement => {
+const Paginator = ({ onPageSelect, selectedPage, maxCount }: PaginatorProps): React.ReactElement => {
+  const pageList = useMemo(() => {
+    let allPages: number[] = [];
+    for (let i = 1; i <= maxCount; i++) {
+      allPages.push(i);
+    };
+    const res = allPages.filter(el => el > 0 && el <= maxCount);
+    const currentPageIndex = res.findIndex(el => el === selectedPage);
+    let startIndex = Math.max(0, currentPageIndex - 2);
+
+    if (startIndex + 5 > maxCount) {
+      startIndex += maxCount - (startIndex + 5)
+    };
+
+    return res.slice(Math.max(startIndex, 0), Math.min(maxCount, startIndex + 5));
+  }, [selectedPage, maxCount]);
+
   return (
     <div className='paginator'>
       <div
@@ -21,8 +37,7 @@ const Paginator = ({ onPageSelect, selectedPage }: PaginatorProps): React.ReactE
       >
         Предыдущая
       </div>
-      {/* TODO Отображение пагинатора в пределах 5 элементов */}
-      {[1, 2].map(page => {
+      {pageList.map(page => {
         return (
           <div
             key={page}
@@ -35,7 +50,16 @@ const Paginator = ({ onPageSelect, selectedPage }: PaginatorProps): React.ReactE
           </div>
         );
       })}
-      <div className='element'>Следующая</div>
+      <div
+        className={`element ${selectedPage >= Math.max(...pageList) ? "disabled" : ""}`}
+        onClick={(): void => {
+          if (selectedPage < Math.max(...pageList)) {
+            onPageSelect(selectedPage + 1);
+          }
+        }}
+        >
+          Следующая
+        </div>
     </div>
   );
 };
