@@ -5,12 +5,17 @@ import Products from "./views/products/products";
 import Autorization from "./views/autorization/autorization";
 import Registration from "./views/registration/registration";
 import { userInitialization } from "./utils/user";
+import UsersService from "./services/users/users.service";
 
 import "./App.css";
 
 const App = (): React.ReactElement => {
   useEffect(() => {
-    userInitialization();
+    const token = localStorage.getItem("token");
+    if (token) {
+      userInitialization();
+      UsersService.getCurrentUser();
+    }
   }, []);
 
   return (

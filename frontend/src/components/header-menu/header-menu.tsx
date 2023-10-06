@@ -1,10 +1,13 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { observer } from "mobx-react-lite";
+import UsersStore from "../../store/users";
+import UsersService from "../../services/users/users.service";
 
 import "font-awesome/css/font-awesome.min.css";
 import "./header-menu.scss";
 
-const HeaderMenu = (): React.ReactElement => {
+const HeaderMenu = observer((): React.ReactElement => {
   const [isMenuDisplayed, setMenuDisplayed] = useState<boolean>(false);
   const navigate = useNavigate();
 
@@ -15,7 +18,9 @@ const HeaderMenu = (): React.ReactElement => {
         <li>Заказы</li>
         <li>Админ-панель</li>
         <hr />
-        <li>Выйти</li>
+        <li onClick={(): void => {
+          UsersService.logout();
+        }}>Выйти</li>
       </div>
     );
   };
@@ -31,18 +36,22 @@ const HeaderMenu = (): React.ReactElement => {
             Каталог
             <i className='fa fa-shopping-bag'></i>
           </div>
-          <div className='elem' onClick={(): void => navigate("/autorization/")}>
-            Войти
-            <i className='fa fa-sign-in' aria-hidden='true'></i>
-          </div>
-          <div style={{ position: "relative" }} onClick={(): void => setMenuDisplayed(!isMenuDisplayed)}>
-            <i className='fa fa-user-circle elem' aria-hidden='true'></i>
-            {isMenuDisplayed && dropdownMenu()}
-          </div>
+          {!UsersStore.user && (
+            <div className='elem' onClick={(): void => navigate("/autorization/")}>
+              Войти
+              <i className='fa fa-sign-in' aria-hidden='true'></i>
+            </div>
+          )}
+          {UsersStore.user && (
+            <div style={{ position: "relative" }} onClick={(): void => setMenuDisplayed(!isMenuDisplayed)}>
+              <i className='fa fa-user-circle elem' aria-hidden='true'></i>
+              {isMenuDisplayed && dropdownMenu()}
+            </div>
+          )}
         </div>
       </div>
     </div>
   );
-};
+});
 
 export default HeaderMenu;

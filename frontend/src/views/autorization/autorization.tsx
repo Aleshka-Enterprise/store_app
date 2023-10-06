@@ -3,7 +3,7 @@ import { useFormik } from "formik";
 import * as yup from "yup";
 import StoreInput from "../../components/store-input/store-input";
 import { useNavigate } from "react-router-dom";
-import UserService from "../../services/users/users.service";
+import UsersService from "../../services/users/users.service";
 
 import "font-awesome/css/font-awesome.min.css";
 import "./autorization.scss";
@@ -28,7 +28,7 @@ const Autorization = (): React.ReactElement => {
       password: "",
     },
     onSubmit: (values): void => {
-      UserService.autorization(values)
+      UsersService.autorization(values)
       .then((): void => {
         navigate("/");
       })
