@@ -3,9 +3,10 @@ export interface IToken {
 };
 
 export interface IUser {
+  username: string,
+  password: string,
+  firstName: string,
+  lastName: string,
+  email: string,
   id: number;
-  username: string;
-  firstName: string;
-  lastname: string;
-  email: string;
 };

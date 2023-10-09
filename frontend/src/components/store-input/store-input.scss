@@ -1,4 +1,14 @@
 .store-input {
+  &.readonly {
+    input {
+      background-color: #e9ecef !important;
+      cursor: default;
+      &:focus {
+        border: 1px solid #ced4da;
+      }
+    }
+    
+  }
   input {
     margin-top: 4px;
     width: calc(100% - 30px);
@@ -13,6 +23,8 @@
     transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
     outline: none;
     padding: 0 15px;
+    content: "Browse";
+    writing-mode: horizontal-tb !important;
     &:focus {
       border: 1px solid skyblue;
     }

@@ -9,20 +9,22 @@ interface StoreInputProps {
   fieldName: string;
   placeholder?: string;
   label?: string;
-  type?: "password" | "text" | "email";
+  type?: "password" | "text" | "email" | "file";
+  readonly?: boolean;
 }
 
-const StoreInput = ({ formik, fieldName, label, placeholder, type = "text" }: StoreInputProps): React.ReactElement => {
+const StoreInput = ({ formik, fieldName, label, placeholder, type = "text", readonly = false }: StoreInputProps): React.ReactElement => {
   const formikProps = getFieldProps(formik, fieldName);
 
   return (
-    <div className='store-input'>
+    <div className={`store-input ${readonly ? "readonly" : ""}`}>
       {label && <label htmlFor={fieldName}>{label}</label>}
       <input
         onChange={formikProps.onChange}
         name={formikProps.name as string}
         placeholder={placeholder}
         type={type}
+        readOnly={readonly}
         onKeyDown={(event: React.KeyboardEvent<HTMLInputElement>) => {
           if (event.key === "Enter") {
             formik.submitForm();

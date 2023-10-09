@@ -2,23 +2,46 @@ import React from "react";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import StoreInput from "../../components/store-input/store-input";
+import usersService from "../../services/users/users.service";
+import { useNavigate } from "react-router-dom";
+import { REQUIRED_FIELD_ERROR } from "../../utils/utils";
 
 import "./registration.scss";
 
 const userSchema = yup.object({
-  username: yup.string().required(),
-  password: yup.string().required(),
+  username: yup.string().required(REQUIRED_FIELD_ERROR),
+  firstName: yup.string().required(REQUIRED_FIELD_ERROR),
+  lastName: yup.string().required(REQUIRED_FIELD_ERROR),
+  email: yup.string().email().required(REQUIRED_FIELD_ERROR),
+  password1: yup.string().required(REQUIRED_FIELD_ERROR),
+  password2: yup.string().required(REQUIRED_FIELD_ERROR),
 });
 
+
 const Registration = (): React.ReactElement => {
+  const navigate = useNavigate();
+
   const formik = useFormik({
     initialValues: {
       username: "",
-      password: "",
+      password1: "",
+      firstName: "",
+      lastName: "",
+      email: "",
+      password2: "",
     },
-    onSubmit: (): void => {
-      // TODO Отправка формы
-      console.log("Отправка формы");
+    onSubmit: (values): void => {
+      if (values.password1 === values.password2) {
+        usersService.registration({ ...values, password: values.password1 })
+        .then(() => {
+          navigate("/login")
+        })
+        .catch(() => {
+          formik.setSubmitting(false);
+        });
+      } else {
+        formik.setSubmitting(false);
+      }
     },
     validationSchema: userSchema,
   });
@@ -32,8 +55,8 @@ const Registration = (): React.ReactElement => {
           </div>
           <div className='card-body'>
             <div className='input-block'>
-              <StoreInput formik={formik} fieldName={"firstname"} label={"Имя"} placeholder={"Имя"} />
-              <StoreInput formik={formik} fieldName={"lastname"} label={"Фамилия"} placeholder={"Фамилия"} />
+              <StoreInput formik={formik} fieldName={"firstName"} label={"Имя"} placeholder={"Имя"} />
+              <StoreInput formik={formik} fieldName={"lastName"} label={"Фамилия"} placeholder={"Фамилия"} />
             </div>
             <div className='input-block'>
               <StoreInput
@@ -67,11 +90,11 @@ const Registration = (): React.ReactElement => {
               />
             </div>
             <div className='button'>
-              <button>Создать аккаунт</button>
+              <button onClick={() => formik.submitForm()}>Создать аккаунт</button>
             </div>
           </div>
           <div className='card-footer'>
-            <span>Уже есть аккаунт? Авторизоваться</span>
+            <span onClick={(): void => navigate("/autorization")}>Уже есть аккаунт? Авторизоваться</span>
           </div>
         </div>
       </div>

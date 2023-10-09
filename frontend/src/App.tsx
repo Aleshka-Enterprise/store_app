@@ -6,6 +6,7 @@ import Autorization from "./views/autorization/autorization";
 import Registration from "./views/registration/registration";
 import { userInitialization } from "./utils/user";
 import UsersService from "./services/users/users.service";
+import Profile from "./views/profile/profile";
 
 import "./App.css";
 
@@ -25,6 +26,7 @@ const App = (): React.ReactElement => {
         <Route path='products' element={<Products />} />
         <Route path='autorization' element={<Autorization />} />
         <Route path='registration' element={<Registration />} />
+        <Route path='profile' element={<Profile />} />
         <Route path='*' element={<Navigate to='/' replace />} />
       </Routes>
     </BrowserRouter>

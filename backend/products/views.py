@@ -9,8 +9,6 @@ from products.serializers import ProductsCategorySerializer, ProductsSerializer
 
 class StandardResultsSetPagination(PageNumberPagination):
     page_size = 3
-    page_size_query_param = 'page_size'
-    max_page_size = 3
 
 
 class ProductsCategoryAPIView(ListAPIView):

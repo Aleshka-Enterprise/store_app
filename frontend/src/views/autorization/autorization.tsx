@@ -4,6 +4,7 @@ import * as yup from "yup";
 import StoreInput from "../../components/store-input/store-input";
 import { useNavigate } from "react-router-dom";
 import UsersService from "../../services/users/users.service";
+import { REQUIRED_FIELD_ERROR } from "../../utils/utils";
 
 import "font-awesome/css/font-awesome.min.css";
 import "./autorization.scss";
@@ -14,8 +15,8 @@ interface IWarning {
 }
 
 const userSchema = yup.object({
-  username: yup.string().required(),
-  password: yup.string().required(),
+  username: yup.string().required(REQUIRED_FIELD_ERROR),
+  password: yup.string().required(REQUIRED_FIELD_ERROR),
 });
 
 const Autorization = (): React.ReactElement => {
@@ -31,9 +32,10 @@ const Autorization = (): React.ReactElement => {
       UsersService.autorization(values)
       .then((): void => {
         navigate("/");
+        UsersService.getCurrentUser();
       })
-      .catch((err) => {
-        setWarning({ title: "Ошибка", description: "Не верный логин или пароль!" })
+      .catch(() => {
+        setWarning({ title: "Ошибка", description: "Не верный логин или пароль!" });
         formik.setSubmitting(false);
       });
     },
