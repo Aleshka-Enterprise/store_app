@@ -19,18 +19,29 @@ const StoreInput = ({ formik, fieldName, label, placeholder, type = "text", read
   return (
     <div className={`store-input ${readonly ? "readonly" : ""}`}>
       {label && <label htmlFor={fieldName}>{label}</label>}
+      {type !== "file" ? (
       <input
         onChange={formikProps.onChange}
         name={formikProps.name as string}
         placeholder={placeholder}
         type={type}
         readOnly={readonly}
+        value={formik.values[fieldName] || ""}
+        className={formik.touched[fieldName] && formik.errors[fieldName] ? "error" : ""}
         onKeyDown={(event: React.KeyboardEvent<HTMLInputElement>) => {
           if (event.key === "Enter") {
             formik.submitForm();
           };
         }}
-      />
+      />) : (
+        <div className='input'>
+          {formik.values[fieldName] || ""}
+          <label className='custom-file-upload'>
+            <input type='file' name={formikProps.name as string} onChange={formikProps.onChange} />
+            Browse
+          </label>
+        </div>
+      )}
     </div>
   );
 };

@@ -29,9 +29,42 @@
       border: 1px solid skyblue;
     }
   }
+  .input {
+    margin-top: 4px;
+    background-color: #fff;
+    height: 40px;
+    border: 1px solid #ced4da;
+    position: relative;
+    align-items: center;
+    display: flex;
+    padding-left: 10px;
+    padding-right: 40px;
+    width: calc(100% - 50px);
+    overflow: hidden;
+    text-wrap: nowrap;
+    input[type="file"] {
+      display: none;
+    }
+    .custom-file-upload {
+      border-left: 1px solid #ccc;
+      display: inline-block;
+      padding: 6px 12px;
+      cursor: pointer;
+      position: absolute;
+      right: 0;
+      height: 29px;
+      display: flex;
+      align-items: center;
+      z-index: 100;
+      background: white;
+    }
+  }
   label {
     font-size: 80%;
     font-weight: 400;
     color: #212529;
+  }
+  .error {
+    border: 1px solid red;
   }
 }

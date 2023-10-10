@@ -1,5 +1,6 @@
 import React from "react";
 import { IProduct } from "../../models/products/products";
+import BasketService from "../../services/basket/basket.service";
 
 import "./product-card.scss";
 
@@ -19,7 +20,7 @@ const ProductCard = ({ product }: ProductCartProps): React.ReactElement => {
         <h5 className='price'>{product.price} руб.</h5>
       </div>
       <div className='card-footer'>
-        <button>Отправить в корзину</button>
+        <button onClick={() => BasketService.create(product.id)}>Отправить в корзину</button>
       </div>
     </div>
   );

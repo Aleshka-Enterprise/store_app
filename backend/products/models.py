@@ -16,7 +16,7 @@ class Product(models.Model):
     price = models.DecimalField(max_digits=6, decimal_places=2, verbose_name='Цена')
     description = models.TextField(verbose_name='Описание')
     short_description = models.CharField(max_length=128, verbose_name='Краткое описание')
-    image = models.ImageField(upload_to='products_images')
+    image = models.ImageField(upload_to='products_images', blank=True, null=True)
 
     def __str__(self):
         return self.name

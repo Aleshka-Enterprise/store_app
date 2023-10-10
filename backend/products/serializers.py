@@ -1,4 +1,5 @@
 from rest_framework import serializers
+
 from products.models import ProductCategory, Product
 
 
@@ -10,6 +11,7 @@ class ProductsCategorySerializer(serializers.ModelSerializer):
 
 class ProductsSerializer(serializers.ModelSerializer):
     category = serializers.SlugRelatedField(slug_field='title', queryset=ProductCategory.objects.all())
+    image = serializers.ImageField(max_length=None, use_url=True,)
 
     class Meta:
         model = Product

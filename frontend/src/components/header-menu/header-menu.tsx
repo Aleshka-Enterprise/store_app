@@ -14,12 +14,14 @@ const HeaderMenu = observer((): React.ReactElement => {
   const dropdownMenu = (): React.ReactElement => {
     return (
       <div className='dropdown-menu'>
-        <li>Профиль</li>
+        <li onClick={() => navigate("/profile/", { replace: true })}>Профиль</li>
         <li>Заказы</li>
         <li>Админ-панель</li>
         <hr />
         <li onClick={(): void => {
-          UsersService.logout();
+          UsersService.logout().then(() => {
+            navigate("/");
+          });
         }}>Выйти</li>
       </div>
     );

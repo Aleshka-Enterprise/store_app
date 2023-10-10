@@ -14,7 +14,7 @@ class ProductService extends CommonService {
   }
 
   getProductsCategories(): Promise<ICategory[]> {
-    return axios.get<ICategory[]>(`${this.url}/categorys`).then(
+    return axios.get<ICategory[]>(`${this.url}/categorys/`).then(
       response => response.data,
       reason => Promise.reject(reason)
     );

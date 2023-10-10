@@ -1,0 +1,93 @@
+.basket {
+  width: 450px;
+  margin-left: 25px;
+  .basket-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .products-count {
+      color: #fff;
+      background-color: #6c757d;
+      width: 30px;
+      height: 20px;
+      border-radius: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+  .product {
+    margin: 15px 0;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 1px solid rgba(0,0,0,.125);
+    border-radius: 0.25rem;
+    h5 {
+      font-weight: 500;
+      font-size: 1.25rem;
+      margin: 0;
+    }
+    .block {
+      padding: 15px 25px;
+    }
+    .controler {
+      border-top: 1px solid rgba(0,0,0,.125);
+      background-color: #f8f9fa;
+      height: 60px;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      input {
+        border-radius: 4px;
+        font-size: 1rem;
+        font-weight: 400;
+        color: #495057;
+        background-color: #fff;
+        background-clip: padding-box;
+        border: 1px solid #ced4da;
+        transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+        outline: none;
+        padding: 0 15px;
+        height: 30px;
+        width: 60px;
+        &:focus {
+          border: 1px solid skyblue;
+        }
+      }
+      .fa {
+        cursor: pointer;
+      }
+    }
+  }
+  .basket-footer {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    background-color: rgba(0,0,0,.03);
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    h4 {
+      margin: 0;
+    }
+    p {
+      margin: 0;
+    }
+  }
+  button {
+    cursor: pointer;
+    float: right;
+    padding: 0.5rem 1rem;
+    font-size: 1.25rem;
+    line-height: 1.5;
+    border-radius: 0.3rem;
+    color: #fff !important;
+    background-color: #28a745;
+    border-color: #28a745;
+    display: inline-block;
+    font-weight: 400;
+    color: #212529;
+    text-align: center;
+    vertical-align: middle;
+    margin-top: 20px;
+  }
+}

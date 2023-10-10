@@ -8,31 +8,42 @@ import { observer } from "mobx-react-lite";
 import { IUser } from "../../models/users/users";
 import UsersStore from "../../store/users";
 import UsersService from "../../services/users/users.service";
+import Basket from "../../components/basket/basket";
+import BasketService from "../../services/basket/basket.service";
 
 import "./profile.scss";
 
 const userSchema = yup.object({
     username: yup.string().required(REQUIRED_FIELD_ERROR),
     email: yup.string().email().required(REQUIRED_FIELD_ERROR),
-    firstName: yup.string().required(REQUIRED_FIELD_ERROR),
-    lastName: yup.string().required(REQUIRED_FIELD_ERROR),
+    firstName: yup.string(),
+    lastName: yup.string(),
   });
 
 const Profile = observer((): React.ReactElement => {
-  const [user, setUser] = useState<IUser>();
+
+  const formik = useFormik({
+    initialValues: {
+      image: "",
+      username: "",
+      email: "",
+      firstName: "",
+      lastName: "",
+    } as IUser,
+    onSubmit: (values): void => {
+      UsersService.putUser(values);
+    },
+    validationSchema: userSchema,
+  });
 
   useEffect(() => {
     if (UsersStore.user?.id) {
       UsersService.getUser(UsersStore.user?.id).then(res => {
-        setUser(res);
+        formik.setValues(res);
       });
+      BasketService.getUserBasket()
     };
-  }, [UsersStore.user])
-  const formik = useFormik({
-    initialValues: {...user},
-    onSubmit: (values): void => {},
-    validationSchema: userSchema,
-  });
+  }, [UsersStore.user]);
 
   return (
     <div className='profile'>
@@ -41,7 +52,7 @@ const Profile = observer((): React.ReactElement => {
         <div className='profile-form'>
           <h4>Профиль</h4>
           <div className='avatar'>
-            <img src="" alt="" />
+            <img src={formik.values.image} alt='' />
           </div>
           <div className='input-block'>
               <StoreInput
@@ -78,6 +89,7 @@ const Profile = observer((): React.ReactElement => {
             </div>
             <button className='save-button'>Сохранить</button>
         </div>
+        <Basket />
       </div>
     </div>
   );

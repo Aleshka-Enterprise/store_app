@@ -4,6 +4,8 @@ from rest_framework.views import APIView
 from user.models import User
 from rest_framework.generics import CreateAPIView, RetrieveUpdateDestroyAPIView
 from rest_framework import permissions
+
+from user.peremissions import IsAuthorOrAdmin
 from user.serializers import CreateUserSerializer, UserSerialization
 
 
@@ -45,17 +47,7 @@ class CreateUserView(CreateAPIView):
 class UserApiView(RetrieveUpdateDestroyAPIView):
     model = User()
     serializer_class = UserSerialization
-    permission_classes = [
-        permissions.AllowAny
-    ]
+    permission_classes = [IsAuthorOrAdmin]
 
-    def get(self, request, *args, **kwargs):
-        user_query_set = User.objects.filter(id=kwargs.get('id'))
-        if user_query_set.exists():
-            user = user_query_set.first()
-            if user.is_valid():
-                return Response(user.data, status=status.HTTP_200_OK)
-            else:
-                return Response(data={'message': 'Ползьователь не найден!'}, status=status.HTTP_404_NOT_FOUND)
-        else:
-            return Response(data={'message': 'Ползьователь не найден!'}, status=status.HTTP_404_NOT_FOUND)
+    def get_queryset(self):
+        return User.objects.filter(id=self.kwargs.get('pk'))

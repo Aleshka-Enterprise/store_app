@@ -60,6 +60,15 @@ class UsersService extends CommonService {
       reason => Promise.reject(reason)
     )
   }
+
+  putUser(user: IUser): Promise<IUser> {
+    return axios.put<IUser>(`${this.url}/${user.id}/`, converCase(user, "snake"), { headers: { 'Content-Type': 'multipart/form-data' } }).then(
+      (response) => {
+        return converCase(response.data, "camel") as IUser;
+      },
+      reason => Promise.reject(reason)
+    )
+  }
 }
 
 export default new UsersService();

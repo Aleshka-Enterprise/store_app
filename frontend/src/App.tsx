@@ -16,7 +16,7 @@ const App = (): React.ReactElement => {
     if (token) {
       userInitialization();
       UsersService.getCurrentUser();
-    }
+    };
   }, []);
 
   return (
