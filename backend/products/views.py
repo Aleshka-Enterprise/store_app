@@ -1,6 +1,6 @@
 from rest_framework.generics import ListAPIView
 from rest_framework.pagination import PageNumberPagination
-from rest_framework.permissions import IsAdminUser
+from rest_framework.permissions import IsAdminUser, AllowAny
 from rest_framework.viewsets import ModelViewSet
 
 from products.models import ProductCategory, Product
@@ -14,6 +14,7 @@ class StandardResultsSetPagination(PageNumberPagination):
 class ProductsCategoryAPIView(ListAPIView):
     queryset = ProductCategory.objects.all()
     serializer_class = ProductsCategorySerializer
+    permission_classes = [AllowAny]
 
 
 class ProductModelViewSet(ModelViewSet):

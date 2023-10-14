@@ -3,6 +3,21 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
+import axios, { InternalAxiosRequestConfig } from "axios";
+
+axios.interceptors.request.use(
+    config => {
+      const token = localStorage.getItem("token");
+      if (token) {
+        return { ...config, headers: { ...config.headers, Authorization: `Token ${token}` } } as InternalAxiosRequestConfig;
+      } else {
+        return config;
+      }
+    },
+    error => {
+      return Promise.reject(error);
+    }
+  );
 
 const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement);
 root.render(<App />);

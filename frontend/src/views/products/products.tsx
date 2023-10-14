@@ -48,7 +48,7 @@ const Products = (): React.ReactElement => {
       <>
         {categories?.map(category => (
           <div
-            key={category.id}
+            key={category.title}
             style={{ color: category.id === categoryId ? "red" : "blue" }}
             onClick={(): void => onCategoryClick(category.id)} className='list-group-item'
           >

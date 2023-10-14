@@ -7,6 +7,6 @@ products = routers.DefaultRouter()
 products.register(r'products-list', ProductModelViewSet, 'products-list')
 
 urlpatterns = [
-    path('categorys/', ProductsCategoryAPIView.as_view()),
-    path('', include(products.urls))
+    path('categories/', ProductsCategoryAPIView.as_view(), name='categories'),
+    path('', include(products.urls), name='products')
 ]

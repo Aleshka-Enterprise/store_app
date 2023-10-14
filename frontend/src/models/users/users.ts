@@ -9,5 +9,5 @@ export interface IUser {
   lastName: string,
   email: string,
   id: number;
-  image?: string;
+  image?: string | File;
 };

@@ -24,14 +24,16 @@ const Profile = observer((): React.ReactElement => {
 
   const formik = useFormik({
     initialValues: {
-      image: "",
       username: "",
       email: "",
       firstName: "",
       lastName: "",
     } as IUser,
     onSubmit: (values): void => {
-      UsersService.putUser(values);
+      UsersService.putUser(values).then(user => {
+        UsersStore.user = user;
+        formik.setValues(user);
+      });
     },
     validationSchema: userSchema,
   });
@@ -52,7 +54,7 @@ const Profile = observer((): React.ReactElement => {
         <div className='profile-form'>
           <h4>Профиль</h4>
           <div className='avatar'>
-            <img src={formik.values.image} alt='' />
+            <img src={UsersStore.user?.image as string} alt='' />
           </div>
           <div className='input-block'>
               <StoreInput
@@ -87,7 +89,7 @@ const Profile = observer((): React.ReactElement => {
                 readonly={true}
               />
             </div>
-            <button className='save-button'>Сохранить</button>
+            <button className='save-button' onClick={(): void => formik.handleSubmit()}>Сохранить</button>
         </div>
         <Basket />
       </div>
