@@ -1,11 +1,12 @@
 from rest_framework import status
-from rest_framework.generics import CreateAPIView, RetrieveUpdateDestroyAPIView, ListAPIView
+from rest_framework.generics import (CreateAPIView, ListAPIView,
+                                     RetrieveUpdateDestroyAPIView)
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 
-from basket.serializers import BasketsSerializer
 from basket.models import Basket
+from basket.serializers import BasketsSerializer
 from user.peremissions import IsAuthorOrAdmin
 
 
@@ -49,4 +50,3 @@ class UserBasketAPIView(ListAPIView):
 
     def get_queryset(self):
         return Basket.objects.filter(user_id=self.request.user.id)
-

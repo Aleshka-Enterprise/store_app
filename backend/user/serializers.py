@@ -1,7 +1,8 @@
-from rest_framework import serializers
-from user.models import User
-from django.core import exceptions
 import django.contrib.auth.password_validation as validators
+from django.core import exceptions
+from rest_framework import serializers
+
+from user.models import User, EmailVerification
 
 
 class CreateUserSerializer(serializers.ModelSerializer):
@@ -29,7 +30,7 @@ class CreateUserSerializer(serializers.ModelSerializer):
             first_name=validated_data.get('first_name'),
             last_name=validated_data.get('last_name'),
         )
-
+        EmailVerification.create_email_verification(user_id=user.id)
         return user
 
     class Meta:
@@ -37,7 +38,7 @@ class CreateUserSerializer(serializers.ModelSerializer):
         fields = ['id', 'username', 'password', 'email', 'first_name', 'last_name']
 
 
-class UserSerialization(serializers.ModelSerializer):
+class UserSerializer(serializers.ModelSerializer):
 
     id = serializers.IntegerField(read_only=True)
     email = serializers.EmailField(read_only=True)

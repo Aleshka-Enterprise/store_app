@@ -1,7 +1,7 @@
 from django.urls import path
 from rest_framework.authtoken import views
 
-from user.views import CurrentUserView, Logout, CreateUserView, UserApiView
+from user.views import CreateUserView, CurrentUserView, Logout, UserApiView
 
 urlpatterns = [
     path('autorization/', views.obtain_auth_token),

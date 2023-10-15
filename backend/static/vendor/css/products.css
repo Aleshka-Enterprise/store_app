@@ -1,0 +1,7 @@
+body {
+    padding-top: 56px;
+}
+.page-selected {
+    background: red !important;
+    color: white;
+}

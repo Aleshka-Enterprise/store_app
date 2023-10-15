@@ -1,5 +1,5 @@
-from django.test import TestCase
 from django.shortcuts import reverse
+from django.test import TestCase
 from rest_framework import status
 
 from products.models import ProductCategory
@@ -14,4 +14,3 @@ class ProductsTestCase(TestCase):
     def test_categories(self):
         response = self.client.get(reverse('categories'))
         self.assertEquals(response.status_code, status.HTTP_200_OK)
-

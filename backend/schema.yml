@@ -1,0 +1,759 @@
+openapi: 3.0.3
+info:
+  title: Blog API Project
+  version: 1.0.0
+  description: A sample blog to learn about DRF
+paths:
+  /api/basket/:
+    get:
+      operationId: api_basket_list
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Baskets'
+          description: ''
+    post:
+      operationId: api_basket_create
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Baskets'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Baskets'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Baskets'
+        required: true
+      security:
+      - tokenAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Baskets'
+          description: ''
+  /api/basket/{id}/:
+    get:
+      operationId: api_basket_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Baskets'
+          description: ''
+    put:
+      operationId: api_basket_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Baskets'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Baskets'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Baskets'
+        required: true
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Baskets'
+          description: ''
+    patch:
+      operationId: api_basket_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedBaskets'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedBaskets'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedBaskets'
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Baskets'
+          description: ''
+    delete:
+      operationId: api_basket_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/basket/add/{product_id}:
+    post:
+      operationId: api_basket_add_create
+      parameters:
+      - in: path
+        name: product_id
+        schema:
+          type: string
+        required: true
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      responses:
+        '201':
+          description: No response body
+  /api/product/categories/:
+    get:
+      operationId: api_product_categories_list
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ProductsCategory'
+          description: ''
+  /api/product/products-list/:
+    get:
+      operationId: api_product_products_list_list
+      parameters:
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedProductsList'
+          description: ''
+    post:
+      operationId: api_product_products_list_create
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Products'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Products'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Products'
+        required: true
+      security:
+      - tokenAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Products'
+          description: ''
+  /api/product/products-list/{id}/:
+    get:
+      operationId: api_product_products_list_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this product.
+        required: true
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Products'
+          description: ''
+    put:
+      operationId: api_product_products_list_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this product.
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Products'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Products'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Products'
+        required: true
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Products'
+          description: ''
+    patch:
+      operationId: api_product_products_list_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this product.
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedProducts'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedProducts'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedProducts'
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Products'
+          description: ''
+    delete:
+      operationId: api_product_products_list_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this product.
+        required: true
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/user/{id}/:
+    get:
+      operationId: api_user_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this пользователь.
+        required: true
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserSerialization'
+          description: ''
+    put:
+      operationId: api_user_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this пользователь.
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserSerialization'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/UserSerialization'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/UserSerialization'
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserSerialization'
+          description: ''
+    patch:
+      operationId: api_user_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this пользователь.
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedUserSerialization'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedUserSerialization'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedUserSerialization'
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserSerialization'
+          description: ''
+    delete:
+      operationId: api_user_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this пользователь.
+        required: true
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/user/autorization/:
+    post:
+      operationId: api_user_autorization_create
+      tags:
+      - api
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/AuthToken'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/AuthToken'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AuthToken'
+        required: true
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthToken'
+          description: ''
+  /api/user/get_current_user/:
+    get:
+      operationId: api_user_get_current_user_retrieve
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserSerialization'
+          description: ''
+  /api/user/logout/:
+    get:
+      operationId: api_user_logout_retrieve
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          description: No response body
+  /api/user/registration/:
+    post:
+      operationId: api_user_registration_create
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateUser'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CreateUser'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/CreateUser'
+        required: true
+      security:
+      - tokenAuth: []
+      - {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateUser'
+          description: ''
+components:
+  schemas:
+    AuthToken:
+      type: object
+      properties:
+        username:
+          type: string
+          writeOnly: true
+          title: Имя пользователя
+        password:
+          type: string
+          writeOnly: true
+          title: Пароль
+        token:
+          type: string
+          readOnly: true
+          title: Токен
+      required:
+      - password
+      - token
+      - username
+    Baskets:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        product:
+          allOf:
+          - $ref: '#/components/schemas/Products'
+          readOnly: true
+        user:
+          allOf:
+          - $ref: '#/components/schemas/UserSerialization'
+          readOnly: true
+        quantity:
+          type: integer
+          title: Количество
+      required:
+      - id
+      - product
+      - quantity
+      - user
+    CreateUser:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        username:
+          type: string
+          title: Имя пользователя
+          description: Обязательное поле. Не более 150 символов. Только буквы, цифры
+            и символы @/./+/-/_.
+          pattern: ^[\w.@+-]+$
+          maxLength: 150
+        password:
+          type: string
+          title: Пароль
+          maxLength: 128
+        email:
+          type: string
+          format: email
+          title: Адрес электронной почты
+          maxLength: 254
+        first_name:
+          type: string
+          title: Имя
+          maxLength: 150
+        last_name:
+          type: string
+          title: Фамилия
+          maxLength: 150
+      required:
+      - id
+      - password
+      - username
+    PaginatedProductsList:
+      type: object
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Products'
+    PatchedBaskets:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        product:
+          allOf:
+          - $ref: '#/components/schemas/Products'
+          readOnly: true
+        user:
+          allOf:
+          - $ref: '#/components/schemas/UserSerialization'
+          readOnly: true
+        quantity:
+          type: integer
+          title: Количество
+    PatchedProducts:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          title: Название
+          maxLength: 256
+        category:
+          type: string
+          title: Наименование
+        quantity:
+          type: integer
+          title: Количество
+        price:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,4}(?:\.\d{0,2})?$
+          title: Цена
+        description:
+          type: string
+          title: Описание
+        short_description:
+          type: string
+          title: Краткое описание
+          maxLength: 128
+        image:
+          type: string
+          format: uri
+    PatchedUserSerialization:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        username:
+          type: string
+          readOnly: true
+        email:
+          type: string
+          format: email
+          readOnly: true
+        first_name:
+          type: string
+          title: Имя
+          maxLength: 150
+        last_name:
+          type: string
+          title: Фамилия
+          maxLength: 150
+        image:
+          type: string
+          format: uri
+          nullable: true
+    Products:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          title: Название
+          maxLength: 256
+        category:
+          type: string
+          title: Наименование
+        quantity:
+          type: integer
+          title: Количество
+        price:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,4}(?:\.\d{0,2})?$
+          title: Цена
+        description:
+          type: string
+          title: Описание
+        short_description:
+          type: string
+          title: Краткое описание
+          maxLength: 128
+        image:
+          type: string
+          format: uri
+      required:
+      - category
+      - description
+      - id
+      - image
+      - name
+      - price
+      - short_description
+    ProductsCategory:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        title:
+          type: string
+          title: Наименование
+          maxLength: 128
+        description:
+          type: string
+          nullable: true
+          title: Описание
+      required:
+      - id
+      - title
+    UserSerialization:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        username:
+          type: string
+          readOnly: true
+        email:
+          type: string
+          format: email
+          readOnly: true
+        first_name:
+          type: string
+          title: Имя
+          maxLength: 150
+        last_name:
+          type: string
+          title: Фамилия
+          maxLength: 150
+        image:
+          type: string
+          format: uri
+          nullable: true
+      required:
+      - email
+      - id
+      - username
+  securitySchemes:
+    tokenAuth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: Token-based authentication with required prefix "Token"

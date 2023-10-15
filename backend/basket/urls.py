@@ -1,7 +1,8 @@
-from django.urls import path, include
+from django.urls import include, path
 from rest_framework import routers
 
-from basket.views import BasketModelViewSet, UserBasketAPIView, AddBasketAPIView
+from basket.views import (AddBasketAPIView, BasketModelViewSet,
+                          UserBasketAPIView)
 
 basket = routers.DefaultRouter()
 basket.register(r'', BasketModelViewSet, 'basket')

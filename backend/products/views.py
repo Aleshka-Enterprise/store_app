@@ -1,9 +1,9 @@
 from rest_framework.generics import ListAPIView
 from rest_framework.pagination import PageNumberPagination
-from rest_framework.permissions import IsAdminUser, AllowAny
+from rest_framework.permissions import AllowAny, IsAdminUser
 from rest_framework.viewsets import ModelViewSet
 
-from products.models import ProductCategory, Product
+from products.models import Product, ProductCategory
 from products.serializers import ProductsCategorySerializer, ProductsSerializer
 
 

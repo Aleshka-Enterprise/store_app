@@ -34,7 +34,7 @@ const Registration = (): React.ReactElement => {
       if (values.password1 === values.password2) {
         usersService.registration({ ...values, password: values.password1 })
         .then(() => {
-          navigate("/login")
+          navigate("/login");
         })
         .catch(() => {
           formik.setSubmitting(false);

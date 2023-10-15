@@ -1,7 +1,7 @@
+from django.urls import include, path
 from rest_framework import routers
 
-from products.views import ProductsCategoryAPIView, ProductModelViewSet
-from django.urls import path, include
+from products.views import ProductModelViewSet, ProductsCategoryAPIView
 
 products = routers.DefaultRouter()
 products.register(r'products-list', ProductModelViewSet, 'products-list')
