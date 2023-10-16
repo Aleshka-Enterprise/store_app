@@ -30,7 +30,6 @@ class CreateUserSerializer(serializers.ModelSerializer):
             first_name=validated_data.get('first_name'),
             last_name=validated_data.get('last_name'),
         )
-        EmailVerification.create_email_verification(user_id=user.id)
         return user
 
     class Meta:
