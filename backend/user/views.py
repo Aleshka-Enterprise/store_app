@@ -63,7 +63,7 @@ class EmailVerificationView(TemplateView):
         if email_verification.exists():
             email_verification = email_verification.first()
             user = email_verification.user
-            user.email_is_certificated = True
+            user.is_verified = True
             user.save()
 
         return res
